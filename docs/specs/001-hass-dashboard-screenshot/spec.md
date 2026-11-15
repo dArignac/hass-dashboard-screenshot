@@ -40,22 +40,22 @@ The container will be fully configurable via environment variables:
 ## Commands
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Build TypeScript to JavaScript
-npm run build
+pnpm run build
 
 # Run unit and integration tests
-npm test
+pnpm test
 
 # Lint and format checking
-npm run lint
+pnpm run lint
 
 # Start in development mode (with tsx / live reload)
-npm run dev
+pnpm run dev
 
 # Start in production mode
-npm start
+pnpm start
 
 # Docker build and run
 docker build -t hass-dashboard-screenshot .
