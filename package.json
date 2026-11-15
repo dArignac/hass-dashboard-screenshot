@@ -11,12 +11,12 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "playwright": "^1.56.1",
-    "zod": "^3.24.2"
+    "playwright": "^1.65.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/node": "^22.15.24",
-    "typescript": "^5.7.3",
-    "vitest": "^4.0.18"
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
   }
 }
