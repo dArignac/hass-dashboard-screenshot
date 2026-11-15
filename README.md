@@ -75,6 +75,18 @@ All configuration is provided via environment variables:
 
 ### 3. Running with Docker CLI
 
+Using the pre-built image from Docker Hub:
+```bash
+docker run -d \
+  --name hass-dashboard-screenshot \
+  -p 8080:8080 \
+  -e HA_URL="http://homeassistant.local:8123" \
+  -e HA_TOKEN="your_token_here" \
+  --restart unless-stopped \
+  darignac/hass-dashboard-screenshot:latest
+```
+
+Or building locally:
 ```bash
 docker build -t hass-dashboard-screenshot .
 docker run -d \
@@ -85,6 +97,37 @@ docker run -d \
   --restart unless-stopped \
   hass-dashboard-screenshot
 ```
+
+---
+
+## CI/CD & Automated Docker Publishing
+
+A GitHub Actions workflow (`.github/workflows/docker-publish.yml`) automatically builds and publishes the container image to Docker Hub (`darignac/hass-dashboard-screenshot`) on pushes to `main` when relevant application files are changed.
+
+### Prerequisites & Secrets Setup
+
+To enable automated publishing to Docker Hub:
+
+#### 1. Generate a Docker Hub Personal Access Token (PAT)
+1. Sign in to [Docker Hub](https://hub.docker.com/).
+2. Navigate to **Account Settings** -> **Security** -> **Personal access tokens**.
+3. Click **Generate new token**.
+4. Set the description (e.g. `GitHub Actions hass-dashboard-screenshot`).
+5. Select **Read & Write** permissions (required to push images to the repository).
+6. Click **Generate** and copy the resulting Personal Access Token.
+
+#### 2. Configure GitHub Repository Secrets
+1. In the GitHub repository, navigate to **Settings** -> **Secrets and variables** -> **Actions**.
+2. Click **New repository secret**.
+3. Create the following secrets:
+   - `DOCKERHUB_USERNAME`: Your Docker Hub username (`darignac`).
+   - `DOCKERHUB_TOKEN`: The Personal Access Token generated above.
+
+### Workflow Behavior
+- **Trigger Conditions:** Automatically runs when commits are pushed to `main` modifying application code (`src/**`, `Dockerfile`, `package.json`, `pnpm-lock.yaml`, `tsconfig*.json`, or the workflow file itself).
+- **Manual Runs:** Supports manual triggers at any time via the **Run workflow** button in GitHub Actions (`workflow_dispatch`).
+- **Pre-publish Validation:** Runs linting, typechecks (`pnpm run lint`), unit tests (`pnpm test`), and compilation (`pnpm run build`) before initiating the Docker build and push.
+- **Image Tags:** Publishes both `latest` (on the default branch) and `sha-<short_sha>`.
 
 ---
 
