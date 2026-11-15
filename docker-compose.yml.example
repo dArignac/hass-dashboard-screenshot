@@ -1,9 +1,6 @@
 services:
   hass-dashboard-screenshot:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: hass-dashboard-screenshot:latest
+    image: darignac/hass-dashboard-screenshot:latest
     container_name: hass-dashboard-screenshot
     restart: unless-stopped
     ports:
