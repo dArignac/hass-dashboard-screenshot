@@ -12,10 +12,10 @@ const booleanPreprocessor = z.preprocess((val) => {
 }, z.boolean().default(true));
 
 export const ConfigSchema = z.object({
-  haUrl: z.string({ required_error: 'HA_URL is required' })
+  haUrl: z.string({ error: 'HA_URL is required' })
     .url('HA_URL must be a valid URL (e.g. http://homeassistant.local:8123)')
     .transform((url) => url.replace(/\/+$/, '')),
-  haToken: z.string({ required_error: 'HA_TOKEN is required' })
+  haToken: z.string({ error: 'HA_TOKEN is required' })
     .min(1, 'HA_TOKEN is required and cannot be empty'),
   dashboardPath: z.string().default('lovelace/0').transform((p) => p.replace(/^\/+/, '')),
   viewportWidth: z.coerce.number().int().positive().default(1920),

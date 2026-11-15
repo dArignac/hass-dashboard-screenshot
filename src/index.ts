@@ -1,4 +1,4 @@
-import { loadConfig } from './config.js';
+import { Config, loadConfig } from './config.js';
 import { ScreenshotStorage } from './storage.js';
 import { AppServer } from './server.js';
 import { DashboardBrowser } from './browser.js';
@@ -7,7 +7,7 @@ import { CaptureScheduler } from './scheduler.js';
 async function main() {
   console.log('[App] Starting Home Assistant Dashboard Screenshot Service...');
 
-  let config;
+  let config: Config;
   try {
     config = loadConfig();
   } catch (err) {
