@@ -1,0 +1,25 @@
+services:
+  hass-dashboard-screenshot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hass-dashboard-screenshot:latest
+    container_name: hass-dashboard-screenshot
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - HA_URL=http://homeassistant.local:8123
+      - HA_TOKEN=your_long_lived_access_token_here
+      - DASHBOARD_PATH=lovelace/0
+      - VIEWPORT_WIDTH=1920
+      - VIEWPORT_HEIGHT=1080
+      - SCREENSHOT_INTERVAL_SECONDS=60
+      - RENDER_DELAY_SECONDS=3
+      - PORT=8080
+      - HOST=0.0.0.0
+      - HIDE_HEADER_AND_SIDEBAR=true
+      - IMAGE_FORMAT=png
+    # Alternatively, load from a .env file:
+    # env_file:
+    #   - .env
