@@ -100,6 +100,7 @@ The pipeline enforces a strict **Separation of Powers** across four distinct age
 
 ### Phase 1: Specify (Contract Authoring)
 
+Create a new branch.
 Create an isolated directory for the issue: `docs/specs/issue-<id>-<slug>/`. Draft `docs/specs/issue-<id>-<slug>/spec.md` covering the 6 core areas and the
 **Effortum Architectural Guard**:
 
