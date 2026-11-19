@@ -131,6 +131,34 @@ To enable automated publishing to Docker Hub:
 
 ---
 
+## Automated Dependency Updates
+
+Automated dependency updates are managed via [GitHub Dependabot](https://docs.github.com/en/code-security/dependabot) and GitHub Actions across all repository ecosystems:
+- **Node.js dependencies (`npm`):** Configured for daily checks in `package.json` / `pnpm-lock.yaml`.
+- **Docker base images (`docker`):** Configured for daily checks in `Dockerfile`.
+- **GitHub Actions (`github-actions`):** Configured for daily checks in `.github/workflows/`.
+
+### Security Cooldown & Grouping Policy
+- **3-Day Cooldown:** All ecosystems enforce a minimum 3-day release age cooldown (`cooldown: { default-days: 3 }`). Dependabot waits at least 3 days after a package or image version is released before opening a pull request, protecting against malicious zero-day supply chain releases.
+- **Non-Major Updates (Minor & Patch):** All non-major updates are automatically grouped into a single pull request (`non-major`). The `.github/workflows/dependabot-auto-merge.yml` workflow automatically approves and enables auto-merge (`--squash`) for these grouped PRs once all status checks in `.github/workflows/ci.yml` pass cleanly.
+- **Major Updates:** Major version bumps are excluded from automated merging. Dependabot opens standalone pull requests for major updates and automatically assigns them to `@dArignac` for human review and breaking change evaluation.
+
+### Required GitHub Repository Settings
+To allow automated merging and PR approvals to function as intended, ensure the following repository settings are enabled:
+
+1. **Allow Auto-Merge:**
+   - Go to **Settings** > **General** > **Pull Requests**.
+   - Check **Allow auto-merge**.
+2. **Workflow Permissions:**
+   - Go to **Settings** > **Actions** > **General** > **Workflow permissions**.
+   - Select **Read and write permissions**.
+   - Check **Allow GitHub Actions to create and approve pull requests**.
+3. **Branch Protection / Rulesets (Recommended):**
+   - Go to **Settings** > **Rules** (or **Branches**).
+   - Require status checks to pass before merging into `main`: ensure `Lint, Test & Build` (from `.github/workflows/ci.yml`) is marked as required.
+
+---
+
 ## Local Development
 
 ### Prerequisites
