@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-11-19
+
+### Added
+- Automated dependency update system via GitHub Dependabot (`.github/dependabot.yml`) for `npm`, `docker`, and `github-actions` ecosystems (#4).
+- 3-day stability cooldown period across all ecosystems to protect against malicious supply-chain releases.
+- Automated grouping of non-major updates (minor and patch) into single PRs with detailed dependency change summaries.
+- Pull request CI quality gate workflow (`.github/workflows/ci.yml`) running linting, unit tests, TypeScript build, and Docker build test.
+- Dependabot auto-merge and assignment workflow (`.github/workflows/dependabot-auto-merge.yml`) that automatically approves and merges non-major updates while assigning major version changes directly to `@dArignac`.
+- Documentation in `README.md` covering automated dependency update operations and required GitHub repository settings ("Allow auto-merge", workflow permissions).
+
 ## [0.2.0] - 2026-11-15
 
 ### Added
