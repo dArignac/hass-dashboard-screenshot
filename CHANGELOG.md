@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-11-26
+
+### Changed
+- Migrated Docker production runner stage from monolithic `mcr.microsoft.com/playwright` to `node:26-bookworm-slim`, drastically reducing Docker image size (#12).
+- Configured minimal browser installation to download strictly `chromium_headless_shell` (`npx playwright install --only-shell chromium`), omitting unused Firefox, WebKit, and FFmpeg binaries.
+- Configured container to execute as non-root `node` user with pre-configured directory permissions, eliminating duplicate overlay filesystem layers and saving over 319 MB of layer duplication.
+- Reduced uncompressed image size from ~2.6 GB to ~883 MB (~66% reduction) and compressed image size from ~1,010 MB to ~317 MB (~68% reduction).
+
+### Added
+- Added `.dockerignore` to streamline Docker build context transfer (< 5 KB vs ~99 MB).
+- Included `.dockerignore` in `.github/workflows/docker-publish.yml` path triggers.
+
 ## [0.3.0] - 2026-11-19
 
 ### Added
